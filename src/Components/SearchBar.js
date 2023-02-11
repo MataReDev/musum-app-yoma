@@ -7,9 +7,12 @@ class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
+      data: null,
+      startIndex: 0,
+      endIndex: 20,
     };
   }
+  
 
   handleSearch = (event) => {
     this.setState({ query: event.target.value });
@@ -28,9 +31,18 @@ class SearchBar extends Component {
     }
   };
 
+  handleSeeMore = () => {
+    this.setState((prevState) => {
+      return {
+        startIndex: 0,
+        endIndex: prevState.endIndex + 20,
+      };
+    });
+  };
+
   render() {
-    const { data } = this.state;
-    const items = Array.isArray(data) ? data : [];
+    const { data, startIndex, endIndex } = this.state;
+    const displayItems = data?.slice(startIndex, endIndex);
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -43,12 +55,15 @@ class SearchBar extends Component {
           <button type="submit">Rechercher</button>
         </form>
         <div className="flex flex-wrap gap-3 content-center justify-center">
-          {items.map(
+          {displayItems?.map(
             (element, index) => (
                 <Object key={index} object={element} />
             )
           )}
         </div>
+        {endIndex < data?.length && (
+          <button onClick={this.handleSeeMore}>Voir plus</button>
+        )}
       </div>
     );
   }

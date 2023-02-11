@@ -27,11 +27,3 @@
 .App-link {
   color: #61dafb;
 }
-
-.Object {
-  width: 30%;
-  padding: 1rem;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  margin-bottom: 1rem;
-}
