@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Object from "./Object";
 
-import '../Style/App.css'
+import "../Style/App.css";
 
 class SearchBar extends Component {
   constructor(props) {
@@ -12,7 +12,6 @@ class SearchBar extends Component {
       endIndex: 20,
     };
   }
-  
 
   handleSearch = (event) => {
     this.setState({ query: event.target.value });
@@ -40,6 +39,15 @@ class SearchBar extends Component {
     });
   };
 
+  handleSeeLess = () => {
+    this.setState((prevState) => {
+      return {
+        startIndex: 0,
+        endIndex: prevState.endIndex - 20,
+      };
+    });
+  };
+
   render() {
     const { data, startIndex, endIndex } = this.state;
     const displayItems = data?.slice(startIndex, endIndex);
@@ -55,12 +63,13 @@ class SearchBar extends Component {
           <button type="submit">Rechercher</button>
         </form>
         <div className="flex flex-wrap gap-3 content-center justify-center">
-          {displayItems?.map(
-            (element, index) => (
-                <Object key={index} object={element} />
-            )
-          )}
+          {displayItems?.map((element, index) => (
+            <Object key={index} object={element} />
+          ))}
         </div>
+        {endIndex > 20 && (
+          <button onClick={this.handleSeeLess}>Voir moins</button>
+        )}
         {endIndex < data?.length && (
           <button onClick={this.handleSeeMore}>Voir plus</button>
         )}
