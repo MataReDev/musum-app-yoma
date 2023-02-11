@@ -16,7 +16,6 @@ class SearchBar extends Component {
   };
 
   handleSubmit = async (event) => {
-    console.log("recherche");
     event.preventDefault();
     try {
       const response = await fetch(
