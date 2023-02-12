@@ -72,7 +72,7 @@ class SearchBar extends Component {
           <button type="submit">Rechercher</button>
           {data && (
             <button type="button" onClick={this.handleClear}>
-              Effacer
+              Réinitialiser
             </button>
           )}
         </form>
