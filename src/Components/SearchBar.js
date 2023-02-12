@@ -48,6 +48,15 @@ class SearchBar extends Component {
     });
   };
 
+  handleClear = () => {
+    this.setState({
+      query: '',
+      data: null,
+      startIndex: 0,
+      endIndex: 20,
+    });
+  }
+
   render() {
     const { data, startIndex, endIndex } = this.state;
     const displayItems = data?.slice(startIndex, endIndex);
@@ -61,6 +70,11 @@ class SearchBar extends Component {
             onChange={this.handleSearch}
           />
           <button type="submit">Rechercher</button>
+          {data && (
+            <button type="button" onClick={this.handleClear}>
+              Effacer
+            </button>
+          )}
         </form>
         <div className="flex flex-wrap gap-3 content-center justify-center">
           {displayItems?.map((element, index) => (
