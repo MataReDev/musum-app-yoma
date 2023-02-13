@@ -28,6 +28,7 @@ const Object = (props) => {
         <div className="">
           <p>Nom de l'objet : {dataObject.title}</p>
           <p>Département : {dataObject.department}</p>
+          <a href={dataObject.constituents?.constituentWikidata_URL}>Nom de l'artiste : {dataObject.constituents?.name}</a>
 
           <img
             className="object-fill md:w-32 lg:w-48"
