@@ -1,12 +1,12 @@
-import SearchBar from './Components/SearchBar';
-import './Style/App.css';
+import QuickSearch from './QuickSearch';
+import '../Style/App.css';
 
 
 
 function App() {
   return (
     <div className="App">
-      <SearchBar />
+      <QuickSearch />
     </div>
   );
 }
