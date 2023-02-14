@@ -41,8 +41,8 @@ const Object = (props) => {
           <div className="flex justify-end">
             {dataObject.constituents && dataObject.constituents.length > 0 && (
               <a
-                href={dataObject.constituents?.constituentWikidata_URL}
-                target="_blank"
+                href={dataObject.constituents[0]?.constituentWikidata_URL}
+                target="_blank" rel="noreferrer"
               >
                 <button className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
                   Voir l'artiste
