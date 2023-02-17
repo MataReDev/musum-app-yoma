@@ -39,13 +39,13 @@ const Object = (props) => {
             />
           </div>
           <div className="flex justify-end align-end">
-            {dataObject.constituents && dataObject.constituents.length > 0 && (
+            {dataObject.objectURL && dataObject.objectURL.length > 0 && (
               <a
-                href={dataObject.constituents[0]?.constituentWikidata_URL}
+                href={dataObject.objectURL}
                 target="_blank" rel="noreferrer"
               >
                 <button className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
-                  Voir l'artiste
+                  Voir +
                 </button>
               </a>
             )}
