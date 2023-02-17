@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "../Style/App.css";
 import SearchResult from "./SearchResult";
@@ -27,6 +28,9 @@ class QuickSearch extends Component {
 
   handleChange = (e) => {
     this.setState({ searchValue: e.target.value });
+    if (window.location.pathname !== "/") {
+      useNavigate("/");
+    }
   };
 
   render() {

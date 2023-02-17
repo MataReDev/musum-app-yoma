@@ -13,7 +13,6 @@ const Object = (props) => {
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.object}`
         );
         const data = await elem.json();
-        console.log(data);
         setDataObject(data);
       } catch (error) {
         console.error(error);
@@ -40,15 +39,15 @@ const Object = (props) => {
           </div>
           <div className="flex justify-end align-end">
             {dataObject.objectURL && dataObject.objectURL.length > 0 && (
-              <a
-                href={dataObject.objectURL}
-                target="_blank" rel="noreferrer"
-              >
+              <a href={dataObject.objectURL} target="_blank" rel="noreferrer">
                 <button className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
                   Voir +
                 </button>
               </a>
             )}
+            <a href={`/object/${dataObject.objectID}`}>
+              <h2>{dataObject.title}</h2>
+            </a>
           </div>
         </div>
       ) : (
