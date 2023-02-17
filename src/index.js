@@ -6,15 +6,17 @@ import "./Style/index.css";
 import reportWebVitals from "./reportWebVitals";
 import HeaderBar from "./Containers/HeaderBar";
 import AdvancedSearch from "./Components/AdvancedSearch";
-import QuickSearch from "./Containers/QuickSearch";
+import App from "./Containers/App";
+import NotFound from "./Containers/NotFound";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
     <HeaderBar />
     <Routes>
-      <Route path="/" element={<QuickSearch />} />
+      <Route path="/" element={<App />} />
       <Route path="/advanced-search" element={<AdvancedSearch />} />
+      <Route path ="*" element={<NotFound />} />
     </Routes>
   </Router>
 );

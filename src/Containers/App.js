@@ -1,4 +1,4 @@
-import QuickSearch from './QuickSearch';
+import QuickSearch from '../Components/QuickSearch';
 import '../Style/App.css';
 
 

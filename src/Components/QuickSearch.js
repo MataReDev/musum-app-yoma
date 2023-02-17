@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import "../Style/App.css";
-import SearchResult from "../Components/SearchResult";
+import SearchResult from "./SearchResult";
 
 class QuickSearch extends Component {
   constructor(props) {

@@ -69,18 +69,26 @@ class SearchResult extends Component {
     }
     return (
       <div className="flex flex-wrap gap-3 content-center justify-center">
-        <button onClick={this.toggleHighlightedOnly}>
-          {showHighlightedOnly ? "Show All" : "Show Highlighted Only"}
-        </button>
-
-        {data && (
-          <button
-            className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
-            type="button"
-            onClick={this.handleClear}
-          >
-            Réinitialiser
-          </button>
+        {data !== null ? (
+          <div className="flex flex-row gap-5">
+            <button
+              className="bg-white hover:bg-gray-300 border-black text-black font-bold py-2 px-4 rounded-lg border-2  transition-colors duration-300"
+              onClick={this.toggleHighlightedOnly}
+            >
+              {showHighlightedOnly ? "Show All" : "Show Highlighted Only"}
+            </button>
+            <button
+              className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
+              type="button"
+              onClick={this.handleClear}
+            >
+              Réinitialiser
+            </button>
+          </div>
+        ) : (
+          <div className="flex justify-center items-center">
+            <div className="loader"></div>
+          </div>
         )}
 
         <div
@@ -92,7 +100,7 @@ class SearchResult extends Component {
           ))}
         </div>
 
-        {items > 0 && endIndex > 20 && (
+        {items?.length > 0 && endIndex > 20 && (
           <button
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             onClick={this.handleSeeLess}
@@ -100,7 +108,7 @@ class SearchResult extends Component {
             - Voir moins
           </button>
         )}
-        {items > 0 && endIndex < data?.length && (
+        {items?.length > 0 && (
           <button
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             onClick={this.handleSeeMore}
