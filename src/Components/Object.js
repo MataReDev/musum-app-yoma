@@ -27,6 +27,7 @@ const Object = (props) => {
       {dataObject ? (
         <div className="rounded-lg border border-gray-300 shadow-lg p-6 h-full">
           <div className="text-center">
+            {dataObject.isHighLight}
             <p className="font-bold text-lg">{dataObject.title}</p>
             <p className="italic font-thin">{dataObject.department}</p>
           </div>
