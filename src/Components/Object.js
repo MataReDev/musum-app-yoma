@@ -27,8 +27,9 @@ const Object = (props) => {
       {dataObject ? (
         <div className="rounded-lg border border-gray-300 shadow-lg p-6 h-full">
           <div className="text-center">
-            {dataObject.isHighLight}
-            <p className="font-bold text-lg">{dataObject.title}</p>
+            <p className="font-bold text-lg">
+              {dataObject.isHighlight} + {dataObject.title}
+            </p>
             <p className="italic font-thin">{dataObject.department}</p>
           </div>
           <div className="flex justify-center my-6 ">
@@ -40,7 +41,10 @@ const Object = (props) => {
           </div>
           <div className="flex justify-end align-end">
             {dataObject.objectURL && dataObject.objectURL.length > 0 && (
-              <a href={`/object/${dataObject.objectID}`} className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
+              <a
+                href={`/object/${dataObject.objectID}`}
+                className="bg-black hover:bg-white hover:text-black text-white font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300"
+              >
                 <h2>Voir l'objet</h2>
               </a>
             )}
