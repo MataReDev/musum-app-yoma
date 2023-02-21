@@ -28,7 +28,8 @@ const Object = (props) => {
         <div className="rounded-lg border border-gray-300 shadow-lg p-6 h-full">
           <div className="text-center">
             <p className="font-bold text-lg">
-              {dataObject.isHighlight} + {dataObject.title}
+              {dataObject.isHighlight && 
+              "test"} + {dataObject.title}
             </p>
             <p className="italic font-thin">{dataObject.department}</p>
           </div>
