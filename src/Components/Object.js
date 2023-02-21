@@ -25,11 +25,10 @@ const Object = (props) => {
   return (
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/5 max-w-xs p-2 content-center">
       {dataObject ? (
-        <div className="rounded-lg border border-gray-300 shadow-lg p-6 h-full">
+        <div className={`rounded-lg border shadow-lg p-6 h-full ${dataObject.isHighlight ? 'border-yellow-400' : 'border-gray-300'}`}>
           <div className="text-center">
             <p className="font-bold text-lg">
-              {dataObject.isHighlight && 
-              "test"} + {dataObject.title}
+              {dataObject.title}
             </p>
             <p className="italic font-thin">{dataObject.department}</p>
           </div>

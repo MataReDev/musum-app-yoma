@@ -18,7 +18,7 @@ class SearchResult extends Component {
 
   searchItem = async () => {
     try {
-      const endpoint = this.state.showHighlightedOnly 
+      const endpoint = this.state.showHighlightedOnly
         ? `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=${this.props.searchValue}`
         : `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${this.props.searchValue}`;
       const response = await fetch(endpoint);
@@ -28,7 +28,6 @@ class SearchResult extends Component {
       console.error(error);
     }
   };
-  
 
   handleSeeLess = () => {
     this.setState((prevState) => {
@@ -67,9 +66,9 @@ class SearchResult extends Component {
     const { data, startIndex, endIndex, showHighlightedOnly } = this.state;
     let items = data?.slice(startIndex, endIndex);
     return (
-      <div className="flex flex-wrap gap-3 content-center justify-center">
+      <div className="flex flex-col gap-3 content-center justify-center">
         {data !== null ? (
-          <div className="flex flex-row gap-5">
+          <div className="flex gap-5 justify-center">
             <button
               className="bg-white hover:bg-gray-300 border-black text-black font-bold py-2 px-4 rounded-lg border-2  transition-colors duration-300"
               onClick={this.toggleHighlightedOnly}
@@ -98,23 +97,24 @@ class SearchResult extends Component {
             <Object key={index} object={element} />
           ))}
         </div>
-
-        {data?.length > 0 && endIndex > 20 && (
-          <button
-            className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
-            onClick={this.handleSeeLess}
-          >
-            - Voir moins
-          </button>
-        )}
-        {data?.length > 20 && (
-          <button
-            className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
-            onClick={this.handleSeeMore}
-          >
-            + Voir plus
-          </button>
-        )}
+        <div className="flex gap-5 justify-center">
+          {data?.length > 0 && endIndex > 20 && (
+            <button
+              className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
+              onClick={this.handleSeeLess}
+            >
+              - Voir moins
+            </button>
+          )}
+          {data?.length > 20 && (
+            <button
+              className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
+              onClick={this.handleSeeMore}
+            >
+              + Voir plus
+            </button>
+          )}
+        </div>
       </div>
     );
   }
