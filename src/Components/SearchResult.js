@@ -18,15 +18,17 @@ class SearchResult extends Component {
 
   searchItem = async () => {
     try {
-      const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${this.props.searchValue}`
-      );
+      const endpoint = this.state.showHighlightedOnly 
+        ? `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=${this.props.searchValue}`
+        : `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${this.props.searchValue}`;
+      const response = await fetch(endpoint);
       const temp = await response.json();
       this.setState({ data: temp.objectIDs });
     } catch (error) {
       console.error(error);
     }
   };
+  
 
   handleSeeLess = () => {
     this.setState((prevState) => {
@@ -63,10 +65,7 @@ class SearchResult extends Component {
 
   render() {
     const { data, startIndex, endIndex, showHighlightedOnly } = this.state;
-    let items = data?.slice(startIndex, endIndex)
-    if (showHighlightedOnly) {
-      items = items.filter((result) => result.isHighlight);
-    }
+    let items = data?.slice(startIndex, endIndex);
     return (
       <div className="flex flex-wrap gap-3 content-center justify-center">
         {data !== null ? (
@@ -100,7 +99,7 @@ class SearchResult extends Component {
           ))}
         </div>
 
-        {items?.length > 0 && endIndex > 20 && (
+        {data?.length > 0 && endIndex > 20 && (
           <button
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             onClick={this.handleSeeLess}
@@ -108,7 +107,7 @@ class SearchResult extends Component {
             - Voir moins
           </button>
         )}
-        {items?.length > 0 && (
+        {data?.length > 20 && (
           <button
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             onClick={this.handleSeeMore}
