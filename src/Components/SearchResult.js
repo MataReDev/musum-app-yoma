@@ -63,9 +63,9 @@ class SearchResult extends Component {
 
   render() {
     const { data, startIndex, endIndex, showHighlightedOnly } = this.state;
-    let items = data?.slice(startIndex, endIndex);
+    let items = data?.slice(startIndex, endIndex)
     if (showHighlightedOnly) {
-      items = items.filter((result) => !result.isHighlight);
+      items = items.filter((result) => result.isHighlight);
     }
     return (
       <div className="flex flex-wrap gap-3 content-center justify-center">
