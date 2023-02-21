@@ -12,6 +12,19 @@ class SearchResult extends Component {
     };
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.searchValue !== nextProps.searchValue) {
+      return true;
+    }
+    if (this.state.showHighlightedOnly !== nextState.showHighlightedOnly) {
+      return true;
+    }
+    if (this.state.data !== nextState.data) {
+      return true;
+    }
+    return false;
+  }
+
   componentDidUpdate() {
     this.searchItem();
   }
