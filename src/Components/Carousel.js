@@ -27,7 +27,7 @@ function Carousel() {
   useEffect(() => {
     const fetchObjectIDs = async () => {
       const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=%22%22&hasImages=true`
+        `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=""&hasImages=true`
       );
       const data = await response.json();
       if (data && data.objectIDs) {
@@ -52,11 +52,14 @@ function Carousel() {
         const data = await response.json();
         return data.primaryImageSmall;
       });
-      const images = await Promise.all(imagePromises);
+      let images = await Promise.all(imagePromises);
+      images = images.filter(image => image !== "");
+      console.log(images)
       setImages(images);
     };
     fetchImages();
   }, [objectIDs]);
+
   const settings = {
     infinite: true,
     lazyload: true,

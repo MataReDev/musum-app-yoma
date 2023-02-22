@@ -1,5 +1,4 @@
 import Carousel from '../Components/Carousel';
-import QuickSearch from '../Components/QuickSearch';
 import '../Style/App.css';
 
 
