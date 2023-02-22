@@ -27,7 +27,7 @@ function Carousel() {
   useEffect(() => {
     const fetchObjectIDs = async () => {
       const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=""`
+        `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=%22%22&hasImages=true`
       );
       const data = await response.json();
       if (data && data.objectIDs) {
