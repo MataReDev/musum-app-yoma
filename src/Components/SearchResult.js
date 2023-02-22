@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useParams } from "react-router";
 import Object from "./Object";
 
 class SearchResult extends Component {
@@ -13,15 +14,19 @@ class SearchResult extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    console.log("test")
     if (this.props.searchValue !== nextProps.searchValue) {
       return true;
     }
+    console.log("test2");
     if (this.state.showHighlightedOnly !== nextState.showHighlightedOnly) {
       return true;
     }
+    console.log("test3");
     if (this.state.data !== nextState.data) {
       return true;
     }
+    console.log("test4");
     return false;
   }
 
@@ -31,16 +36,18 @@ class SearchResult extends Component {
 
   searchItem = async () => {
     try {
+      const { searchValue } = useParams();
+      console.log(searchValue);
       const endpoint = this.state.showHighlightedOnly
-        ? `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=${this.props.searchValue}`
-        : `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${this.props.searchValue}`;
+        ? `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=${searchValue}`
+        : `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${searchValue}`;
       const response = await fetch(endpoint);
       const temp = await response.json();
       this.setState({ data: temp.objectIDs });
     } catch (error) {
       console.error(error);
     }
-  };
+  };  
 
   handleSeeLess = () => {
     this.setState((prevState) => {
