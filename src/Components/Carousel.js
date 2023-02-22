@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import "../Style/App.css";
 
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import SearchResult from "./SearchResult";
 
-function Carousel() {
+function Carousel(props) {
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>
@@ -26,20 +27,22 @@ function Carousel() {
 
   useEffect(() => {
     const fetchObjectIDs = async () => {
-      const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=""&hasImages=true`
-      );
+      const response = await fetch(props.apiGet);
       const data = await response.json();
       if (data && data.objectIDs) {
         const randomObjectIDs = data.objectIDs
           .sort(() => 0.5 - Math.random())
           .slice(0, 20);
+        
+          console.group("Carousel")
+          console.log(randomObjectIDs);
         setObjectIDs(randomObjectIDs);
       }
     };
 
     fetchObjectIDs();
-  }, []);
+  }, [props.apiGet]);
+
 
   const [images, setImages] = useState([]);
 
@@ -50,15 +53,16 @@ function Carousel() {
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
         );
         const data = await response.json();
+        console.log(data);
+        console.groupEnd()
         return data.primaryImageSmall;
       });
       let images = await Promise.all(imagePromises);
-      images = images.filter(image => image !== "");
-      console.log(images)
+      images = images.filter((image) => image !== "");
       setImages(images);
     };
     fetchImages();
-  }, [objectIDs]);
+  }, [objectIDs, props.prefix]);
 
   const settings = {
     infinite: true,
@@ -74,11 +78,12 @@ function Carousel() {
 
   return (
     <div className="Carousel">
+      {props.title}
       <Slider {...settings}>
         {images.map((img, idx) => {
           return (
             <div
-              key={idx}
+            key={`${props.title}-${idx}`} 
               className={idx === imageIndex ? "slide activeSlide" : "slide"}
             >
               <img src={img} alt={img} />
