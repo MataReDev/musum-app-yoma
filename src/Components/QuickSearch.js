@@ -36,7 +36,7 @@ class QuickSearch extends Component {
   render() {
     const { searchValue } = this.state;
     return (
-      <div className="flex justify-center gap-10 p-4 flex-col">
+      <div className="flex justify-center gap-10 p-4 flex-col border-black">
         <form
           className="flex justify-center gap-5"
           onSubmit={this.handleSubmit}
