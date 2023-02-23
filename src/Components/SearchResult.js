@@ -65,7 +65,7 @@ function SearchResult() {
   const items = data?.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col gap-3 content-center justify-center">
+    <div className="flex flex-col gap-3 p-10 content-center justify-center">
       {data !== null ? (
         <div className="flex gap-5 justify-center">
           <button
