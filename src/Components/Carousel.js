@@ -39,7 +39,6 @@ function Carousel(props) {
     fetchObjectIDs();
   }, [props.apiGet]);
 
-
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -72,12 +71,12 @@ function Carousel(props) {
 
   return (
     <div className="Carousel">
-      {props.title}
+      <h1>{props.title}</h1>
       <Slider {...settings}>
         {images.map((img, idx) => {
           return (
             <div
-            key={`${props.title}-${idx}`} 
+              key={`${props.title}-${idx}`}
               className={idx === imageIndex ? "slide activeSlide" : "slide"}
             >
               <img src={img} alt={img} />

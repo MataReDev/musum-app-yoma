@@ -2,13 +2,11 @@ import { Link } from "react-router-dom";
 
 function NotFound() {
   return (
-    <div className="not-found flex flex-col gap-5 items-center">
+    <div className="not-found flex flex-col gap-5 items-center mt-10">
       <h1 className="text-5xl">ERROR 404</h1>
       <img
         src="https://media.tenor.com/9ud1r4sc-QQAAAAM/confused-john-travolta.gif"
         alt="img-error-404"
-        width="50%"
-        height="auto"
       />
       <Link
         to="/"

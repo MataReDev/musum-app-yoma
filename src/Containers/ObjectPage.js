@@ -1,79 +1,117 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
+
 import noImage from "../img/no-image.png";
-import planet_svg from "../img/planet.svg"
+import planet_svg from "../img/planet.svg";
+import Carousel from "../Components/Carousel";
 
 const ObjectPage = () => {
   const { idObject } = useParams();
   const [dataObject, setDataObject] = useState(null);
+  const navigate = useNavigate();
+  const [department, setDepartment] = useState([]);
 
   useEffect(() => {
+    let temp = null;
     const fetchData = async () => {
       try {
         const response = await fetch(
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${idObject}`
         );
         const data = await response.json();
+        temp = data;
         setDataObject(data);
       } catch (error) {
         console.error(error);
       }
     };
 
+    const fetchDepartment = async () => {
+      const response = await fetch(
+        `https://collectionapi.metmuseum.org/public/collection/v1/departments`
+      );
+      console.log(temp);
+      const data = await response.json();
+      if (data && data.departments) {
+        const dep = data.departments.filter(
+          (dep) => dep.displayName === temp.department
+        );
+        console.log(dep);
+        setDepartment(dep);
+      }
+    };
+
     fetchData();
-  }, [idObject]);
+
+    fetchDepartment();
+  }, [idObject, navigate]);
+
+  if (!dataObject || dataObject.message) {
+    navigate("/not-found");
+    return null;
+  }
+
+  const goBack = () => {
+    window.history.back();
+  };
 
   return (
-    <>
-      {dataObject ? (
-        <div className="p-8 flex flex-wrap justify-around min-h-full">
-          <div className="mt-4">
-            <h1 className="text-2xl font-bold">{dataObject.title}</h1>
-            <img
-              src={dataObject.primaryImage ? dataObject.primaryImage : noImage}
-              alt="Primary"
-              className="w-full"
-            />
-          </div>
-          <div>
-            <div className="mt-4">
-              <p className="text-lg font-bold">Description</p>
-              <p className="mt-2">{dataObject.objectName}</p>
-              <p className="mt-2">{dataObject.medium}</p>
-              <p className="mt-2">{dataObject.objectDate}</p>
-              <p className="mt-2">{dataObject.creditLine}</p>
-            </div>
-            <div className="mt-4">
-              <p className="text-lg font-bold">Dimensions</p>
-              <ul className="mt-2 list-disc list-inside">
-                {dataObject.measurements?.map((measurement) => (
-                  <li key={measurement.elementName}>
-                    {measurement.elementName}:{" "}
-                    {measurement.elementMeasurements.Height} x{" "}
-                    {measurement.elementMeasurements.Width} x{" "}
-                    {measurement.elementMeasurements.Length}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mt-4">
-              <p className="text-lg font-bold">Location</p>
-              <p className="mt-2">
-                {dataObject.region}, {dataObject.subregion}, {dataObject.locale}
-              </p>
-            </div>
-            <a href={dataObject.objectURL} target="_blank" rel="noreferrer" className="">
-              <button className="text-white bg-black hover:bg-white hover:text-black font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
-                <img src={planet_svg} alt="" className="fill-white hover:fill-black"/>
-                Voir +
-              </button>
-            </a>
-          </div>
+    <div className="flex flex-col justify-around">
+      <div className="button-container">
+        <button className="back-button" onClick={goBack}>
+          <FiArrowLeft />
+        </button>
+      </div>
+      <div className="flex flex-wrap justify-around ">
+        <div className="flex flex-col justify-center gap-3">
+          <h1 className="text-2xl font-bold">{dataObject.title}</h1>
+          <img
+            src={dataObject.primaryImage ? dataObject.primaryImage : noImage}
+            alt="Primary"
+            className="max-w-lg"
+          />
         </div>
-      ) : (
-        <p>Pas de données</p>
-      )}
-    </>
+        <div>
+          <div className="mt-4">
+            <p className="text-lg font-bold">Description</p>
+            <p className="mt-2">Tite : {dataObject.title}</p>
+            <p className="mt-2">
+              Artiste :{" "}
+              <a
+                href={dataObject.artistWikidata_URL}
+                className="mt-2 underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {dataObject.artistDisplayName}
+              </a>
+            </p>
+            <p className="mt-2">Date de création : {dataObject.objectDate}</p>
+            <p className="mt-2">Dimensions : {dataObject.dimensions}</p>
+          </div>
+          <a href={dataObject.objectURL} target="_blank" rel="noreferrer">
+            <button className="text-white bg-black hover:bg-white hover:text-black font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
+              Voir +
+              <img src={planet_svg} alt="" />
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        Oeuvres d'art associées
+        {department.map((dep) => {
+          return (
+            <Carousel
+              key={dep.departmentId}
+              prefix={`carousel-${dep.departmentId}`}
+              apiGet={`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${dep.departmentId}&q=""&hasImage=true`}
+            />
+          );
+        })}
+      </div>
+    </div>
   );
 };
 
