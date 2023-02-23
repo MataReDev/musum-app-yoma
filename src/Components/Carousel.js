@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import "../Style/App.css";
 
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-import SearchResult from "./SearchResult";
 
 function Carousel(props) {
   const NextArrow = ({ onClick }) => {
@@ -33,9 +32,6 @@ function Carousel(props) {
         const randomObjectIDs = data.objectIDs
           .sort(() => 0.5 - Math.random())
           .slice(0, 20);
-        
-          console.group("Carousel")
-          console.log(randomObjectIDs);
         setObjectIDs(randomObjectIDs);
       }
     };
@@ -53,9 +49,7 @@ function Carousel(props) {
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
         );
         const data = await response.json();
-        console.log(data);
-        console.groupEnd()
-        return data.primaryImageSmall;
+        return data.primaryImage;
       });
       let images = await Promise.all(imagePromises);
       images = images.filter((image) => image !== "");
@@ -77,7 +71,7 @@ function Carousel(props) {
   };
 
   return (
-    <div className="Carousel">
+    <div className="Carousel border-2 border-black">
       {props.title}
       <Slider {...settings}>
         {images.map((img, idx) => {
