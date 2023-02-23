@@ -16,6 +16,7 @@ class QuickSearch extends Component {
 
   render() {
     const { searchValue } = this.state;
+    const linkUrl = searchValue === "" ? "?search=\"\"" : `?search=${searchValue}`;
     return (
       <div className="flex justify-center gap-10 p-4 flex-col border-black">
         <form className="flex justify-center gap-5">
@@ -30,7 +31,7 @@ class QuickSearch extends Component {
             }
           />
           <Link
-            to={`/result?search=${searchValue}`}
+            to={`/result${linkUrl}`}
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             type="submit"
           >
