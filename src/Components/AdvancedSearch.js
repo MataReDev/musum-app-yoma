@@ -3,78 +3,71 @@ import SearchResult from "./SearchResult";
 
 class AdvancedSearch extends Component {
   state = {
-    department: "",
+    department: null,
+    departmentId: 0,
     isHighlight: false,
+    showResult: false
   };
 
   handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value,
-    });
+    this.setState({ departmentId: event.target.value });
   };
 
-  handleSubmit = (event) => {};
+  componentDidMount() {
+    this.fetchDepartment();
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault(); // pour éviter que la page se recharge
+    const selectedDepartmentId = event.target.department.value;
+    this.setState({ departmentId: selectedDepartmentId, showResult: true });
+
+  };
 
   fetchDepartment = async () => {
     const response = await fetch(
       `https://collectionapi.metmuseum.org/public/collection/v1/departments`
     );
     const data = await response.json();
-    if (data && data.departments) {
-      console.log(dep);
-      setDepartment(data);
-    }
+    const departments = data.departments;
+    const dataSlice = departments
+    this.setState({ department: dataSlice });
   };
 
   render() {
+    const { department, departmentId, showResult } = this.state;
     return (
       <div className="flex flex-col gap-5">
         <form onSubmit={this.handleSubmit}>
           <h2>Recherche avancée :</h2>
           <h3>Département :</h3>
-          <label>
-            <input
-              type="radio"
-              name="department"
-              value="Ancient Near Eastern Art"
-              onChange={this.handleInputChange}
-            />
-            Ancient Near Eastern Art
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="department"
-              value="Egyptian Art"
-              onChange={this.handleInputChange}
-            />
-            Egyptian Art
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="department"
-              value="Greek and Roman Art"
-              onChange={this.handleInputChange}
-            />
-            Greek and Roman Art
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="department"
-              value="Asian Art"
-              onChange={this.handleInputChange}
-            />
-            Asian Art
-          </label>
+          {department?.map((dep, idx) => {
+            return (
+              <label key={idx}>
+                <input
+                  type="radio"
+                  name="department"
+                  value={dep.departmentId}
+                  onChange={this.handleInputChange}
+                />
+                {dep.displayName}
+              </label>
+            );
+          })}
           <br />
-          <button type="submit">Rechercher</button>
+          <button
+            className="px-4 py-2 border-2 rounded-lg hover:border-black transition-all duration-300"
+            type="submit"
+          >
+            Rechercher
+          </button>
         </form>
-        <SearchResult advancedSearch={true} />
+        { showResult &&
+          <SearchResult
+            advancedSearch={true}
+            departmentId={departmentId}
+          />
+        }
       </div>
     );
   }
