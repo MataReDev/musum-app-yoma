@@ -1,56 +1,80 @@
 import React, { Component } from "react";
-//mini commit
+import SearchResult from "./SearchResult";
+
 class AdvancedSearch extends Component {
+  state = {
+    department: "",
+    isHighlight: false,
+  };
+
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
+  };
+
+  handleSubmit = (event) => {};
+
+  fetchDepartment = async () => {
+    const response = await fetch(
+      `https://collectionapi.metmuseum.org/public/collection/v1/departments`
+    );
+    const data = await response.json();
+    if (data && data.departments) {
+      console.log(dep);
+      setDepartment(data);
+    }
+  };
+
   render() {
     return (
       <div className="flex flex-col gap-5">
-        <h2>Search query:</h2>
-        <input type="text" name="query" />
-
-        <h2>Department:</h2>
-        <div className="flex gap-5">
-          <label for="department-ancient-near-eastern-art">
+        <form onSubmit={this.handleSubmit}>
+          <h2>Recherche avancée :</h2>
+          <h3>Département :</h3>
+          <label>
             <input
-              type="checkbox"
+              type="radio"
               name="department"
-              id="department-ancient-near-eastern-art"
-              value="ancient-near-eastern-art"
+              value="Ancient Near Eastern Art"
+              onChange={this.handleInputChange}
             />
             Ancient Near Eastern Art
           </label>
-          <label for="department-egyptian-art">
+          <label>
             <input
-              type="checkbox"
+              type="radio"
               name="department"
-              id="department-egyptian-art"
-              value="egyptian-art"
+              value="Egyptian Art"
+              onChange={this.handleInputChange}
             />
             Egyptian Art
           </label>
-          <label for="department-greek-and-roman-art">
+          <label>
             <input
-              type="checkbox"
+              type="radio"
               name="department"
-              id="department-greek-and-roman-art"
-              value="greek-and-roman-art"
+              value="Greek and Roman Art"
+              onChange={this.handleInputChange}
             />
             Greek and Roman Art
           </label>
-          <label for="department-asian-art">
+          <label>
             <input
-              type="checkbox"
+              type="radio"
               name="department"
-              id="department-asian-art"
-              value="asian-art"
+              value="Asian Art"
+              onChange={this.handleInputChange}
             />
             Asian Art
           </label>
-        </div>
-
-        <h2>Highlighted:</h2>
-        <input type="checkbox" name="highlighted" />
-
-        <button type="submit">Search</button>
+          <br />
+          <button type="submit">Rechercher</button>
+        </form>
+        <SearchResult advancedSearch={true} />
       </div>
     );
   }

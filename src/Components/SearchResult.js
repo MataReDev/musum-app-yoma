@@ -9,7 +9,7 @@ function useSearchValue() {
   return searchValue;
 }
 
-function SearchResult() {
+function SearchResult(props) {
   const [data, setData] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(20);
@@ -20,7 +20,10 @@ function SearchResult() {
     async function searchItem() {
       try {
         const endpoint = showHighlightedOnly
-          ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
+          ? (props.advancedSearch 
+            ?`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&departmentId=${}&q=${searchValue}`
+            :`https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
+            )
           : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=trueq=${searchValue}`;
         const response = await fetch(endpoint);
         const temp = await response.json();
