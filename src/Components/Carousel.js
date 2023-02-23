@@ -4,7 +4,7 @@ import "../Style/App.css";
 
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
-function Carousel() {
+function Carousel(props) {
   const NextArrow = ({ onClick }) => {
     return (
       <div className="arrow next" onClick={onClick}>
@@ -26,9 +26,7 @@ function Carousel() {
 
   useEffect(() => {
     const fetchObjectIDs = async () => {
-      const response = await fetch(
-        `https://collectionapi.metmuseum.org/public/collection/v1/search?isHighlight=true&q=%22%22&hasImages=true`
-      );
+      const response = await fetch(props.apiGet);
       const data = await response.json();
       if (data && data.objectIDs) {
         const randomObjectIDs = data.objectIDs
@@ -39,7 +37,8 @@ function Carousel() {
     };
 
     fetchObjectIDs();
-  }, []);
+  }, [props.apiGet]);
+
 
   const [images, setImages] = useState([]);
 
@@ -50,13 +49,15 @@ function Carousel() {
           `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`
         );
         const data = await response.json();
-        return data.primaryImageSmall;
+        return data.primaryImage;
       });
-      const images = await Promise.all(imagePromises);
+      let images = await Promise.all(imagePromises);
+      images = images.filter((image) => image !== "");
       setImages(images);
     };
     fetchImages();
-  }, [objectIDs]);
+  }, [objectIDs, props.prefix]);
+
   const settings = {
     infinite: true,
     lazyload: true,
@@ -71,11 +72,12 @@ function Carousel() {
 
   return (
     <div className="Carousel">
+      {props.title}
       <Slider {...settings}>
         {images.map((img, idx) => {
           return (
             <div
-              key={idx}
+            key={`${props.title}-${idx}`} 
               className={idx === imageIndex ? "slide activeSlide" : "slide"}
             >
               <img src={img} alt={img} />
