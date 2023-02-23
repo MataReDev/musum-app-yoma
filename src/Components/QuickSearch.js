@@ -24,7 +24,7 @@ class QuickSearch extends Component {
             className="bg-gray-200 py-2.5 px-4 rounded-lg"
             type="text"
             placeholder="Rechercher..."
-            name="searchInput"
+            name="search"
             value={searchValue}
             onChange={(event) =>
               this.setState({ searchValue: event.target.value })

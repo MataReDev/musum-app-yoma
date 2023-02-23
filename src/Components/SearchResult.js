@@ -21,7 +21,7 @@ function SearchResult() {
       try {
         const endpoint = showHighlightedOnly
           ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
-          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=trueq=${searchValue}`;
+          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
         const response = await fetch(endpoint);
         const temp = await response.json();
         setData(temp.objectIDs);
