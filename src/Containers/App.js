@@ -25,12 +25,11 @@ function App() {
   return (
     <div className="App">
       {departments.map((dep, idx) => {
-        console.log(dep);
         return (
           <Carousel
             key={dep.departmentId}
             prefix={`carousel-${dep.departmentId}`}
-            apiGet={`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${dep.departmentId}&q=""&hasImage=true  `}
+            apiGet={`https://collectionapi.metmuseum.org/public/collection/v1/search?departmentId=${dep.departmentId}&q=""&hasImage=true`}
             title={"Department : " + dep.displayName}
           />
         );
