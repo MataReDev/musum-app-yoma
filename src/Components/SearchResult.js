@@ -21,7 +21,7 @@ function SearchResult() {
       try {
         const endpoint = showHighlightedOnly
           ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
-          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=trueq=${searchValue}`;
+          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
         const response = await fetch(endpoint);
         const temp = await response.json();
         setData(temp.objectIDs);
@@ -65,7 +65,7 @@ function SearchResult() {
   const items = data?.slice(startIndex, endIndex);
 
   return (
-    <div className="flex flex-col gap-3 content-center justify-center">
+    <div className="flex flex-col gap-3 p-10 content-center justify-center">
       {data !== null ? (
         <div className="flex gap-5 justify-center">
           <button

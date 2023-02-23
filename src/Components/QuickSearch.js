@@ -19,12 +19,12 @@ class QuickSearch extends Component {
     const linkUrl = searchValue === "" ? "?search=\"\"" : `?search=${searchValue}`;
     return (
       <div className="flex justify-center gap-10 p-4 flex-col">
-        <form className="flex justify-center gap-5">
+        <div className="flex justify-center gap-5">
           <input
             className="bg-gray-200 py-2.5 px-4 rounded-lg"
             type="text"
             placeholder="Rechercher..."
-            name="searchInput"
+            name="/result?search"
             value={searchValue}
             onChange={(event) =>
               this.setState({ searchValue: event.target.value })
@@ -37,7 +37,7 @@ class QuickSearch extends Component {
           >
             Rechercher
           </Link>
-        </form>
+        </div>
       </div>
     );
   }
