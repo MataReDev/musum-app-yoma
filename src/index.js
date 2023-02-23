@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./Style/index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -9,6 +8,7 @@ import AdvancedSearch from "./Components/AdvancedSearch";
 import App from "./Containers/App";
 import NotFound from "./Containers/NotFound";
 import ObjectPage from "./Containers/ObjectPage";
+import SearchResult from "./Components/SearchResult";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -18,6 +18,7 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/advanced-search" element={<AdvancedSearch />} />
       <Route path="/object/:idObject" element={<ObjectPage />} />
+      <Route path="/result" element={<SearchResult />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   </Router>

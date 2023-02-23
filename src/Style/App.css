@@ -2,25 +2,32 @@
 @import "~slick-carousel/slick/slick-theme.css";
 
 .Carousel {
-  width: 50%;
-  margin: 10rem auto;
-  height: 400;
+  margin: 1rem auto;
+  width: 60%;
+  height: auto;
+  justify-content: center;
 }
 
 .slide img {
-  width: 20rem;
-  margin: 0 auto;
-  vertical-align: middle;
+  position:relative;
+  overflow:hidden;
 }
+
 .slide {
   transform: scale(0.2);
   transition: transform 300ms;
   opacity: 0.5;
+  height: stretch;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .activeSlide {
   transform: scale(1);
   opacity: 1;
+  text-align: center;
+  align-items: center;
 }
 
 .arrow {
