@@ -1,27 +1,31 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import Object from './Object'
+import Object from "./Object";
 
-function useSearchValue() {
+function useSearchValue(departmentId) {   
   const location = useLocation();
-  const searchValue = new URLSearchParams(location.search).get("search");
+  const searchValue = departmentId ? `1` : new URLSearchParams(location.search).get("search");
   return searchValue;
 }
 
-function SearchResult() {
+function SearchResult(props) {
   const [data, setData] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(20);
   const [showHighlightedOnly, setShowHighlightedOnly] = useState(false);
-  const searchValue = useSearchValue();
+  const searchValue = useSearchValue(props.departmentId);
 
   useEffect(() => {
     async function searchItem() {
       try {
         const endpoint = showHighlightedOnly
-          ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
-          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
+          ? props.advancedSearch
+            ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&departmentId=${props.departmentId}&isHighlight=true&q=""`
+            : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
+          : props.advancedSearch
+            ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&departmentId=${props.departmentId}&q=""`
+            : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
         const response = await fetch(endpoint);
         const temp = await response.json();
         setData(temp.objectIDs);
@@ -35,7 +39,7 @@ function SearchResult() {
     if (searchValue) {
       searchItem();
     }
-  }, [searchValue, showHighlightedOnly]);
+  }, [searchValue, showHighlightedOnly, props]);
 
   function handleSeeLess() {
     setStartIndex(0);
@@ -52,9 +56,7 @@ function SearchResult() {
     });
   }
 
-  function handleClear() {
-
-  }
+  function handleClear() {}
 
   function toggleHighlightedOnly() {
     setShowHighlightedOnly(
