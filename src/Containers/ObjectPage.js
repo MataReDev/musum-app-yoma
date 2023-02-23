@@ -26,7 +26,7 @@ const ObjectPage = () => {
   return (
     <>
       {dataObject ? (
-        <div className="p-8 flex flex-row gap-5 space-between justify-center min-h-full">
+        <div className="p-8 flex flex-wrap justify-around min-h-full">
           <div className="mt-4">
             <h1 className="text-2xl font-bold">{dataObject.title}</h1>
             <img
