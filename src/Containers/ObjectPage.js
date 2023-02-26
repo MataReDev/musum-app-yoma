@@ -90,12 +90,22 @@ const ObjectPage = () => {
             <p className="mt-2">Date de création : {dataObject.objectDate}</p>
             <p className="mt-2">Dimensions : {dataObject.dimensions}</p>
           </div>
-          <a href={dataObject.objectURL} target="_blank" rel="noreferrer">
-            <button className="text-white bg-black hover:bg-white hover:text-black font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
-              Voir +
-              <img src={planet_svg} alt="" />
-            </button>
-          </a>
+          <div className="flex gap-5">
+            <a href={dataObject.objectURL} target="_blank" rel="noreferrer">
+              <button className="text-white bg-black hover:bg-white hover:text-black font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
+                Voir MetMuseum
+              </button>
+            </a>
+            <a
+              href={dataObject.objectWikidata_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <button className="text-white bg-black hover:bg-white hover:text-black font-bold py-2 px-4 rounded border-2 border-black transition-colors duration-300">
+                Voir Wikidata
+              </button>
+            </a>
+          </div>
         </div>
       </div>
 
