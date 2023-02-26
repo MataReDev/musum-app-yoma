@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FiArrowLeft } from "react-icons/fi";
 
 import noImage from "../img/no-image.png";
-import planet_svg from "../img/planet.svg";
 import Carousel from "../Components/Carousel";
 
 const ObjectPage = () => {
