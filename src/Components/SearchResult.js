@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import Object from "./Object";
+import ObjectComonent from "./ObjectComonent";
 
 function useSearchValue(departmentId) {
   const location = useLocation();
@@ -88,7 +88,7 @@ function SearchResult(props) {
         style={{ alignItems: "stretch" }}
       >
         {items?.map((element, index) => (
-          <Object key={index} object={element} />
+          <ObjectComonent key={index} object={element} />
         ))}
       </div>
       <div className="flex gap-5 justify-center">
