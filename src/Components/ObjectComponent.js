@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Style/App.css";
 import noImage from "../img/no-image.png";
 
-const ObjectComonent = (props) => {
+const ObjectComponent = (props) => {
   const [dataObject, setDataObject] = useState(null);
 
   useEffect(() => {
@@ -70,4 +70,4 @@ const ObjectComonent = (props) => {
   );
 };
 
-export default ObjectComonent;
+export default ObjectComponent;
