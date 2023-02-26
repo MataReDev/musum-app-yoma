@@ -38,10 +38,9 @@ class AdvancedSearch extends Component {
     return (
       <div className="flex flex-col gap-5">
         <form onSubmit={this.handleSubmit}>
-          <h2 class="text-xl font-bold">Recherche avancée :</h2>
+          <h2 className="text-xl font-bold">Recherche avancée :</h2>
           <h3 className="font-bold">Département :</h3>
-          <table className="border-collapse">
-            <tbody>
+          <div className="border-collapse">
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
                 {department?.map((dep, idx) => {
                   return (
@@ -58,8 +57,7 @@ class AdvancedSearch extends Component {
                   );
                 })}
               </div>
-            </tbody>
-          </table>
+          </div>
           <br />
           <button
             className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
