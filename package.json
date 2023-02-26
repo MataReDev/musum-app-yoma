@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "@react-three/drei": "^9.56.25",
+    "enzyme": "^3.11.0",
+    "jest": "^27.5.1",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.8.1",
     "react-slick": "^0.29.0",
