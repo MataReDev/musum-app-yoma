@@ -3,9 +3,11 @@ import { useLocation } from "react-router-dom";
 
 import Object from "./Object";
 
-function useSearchValue(departmentId) {   
+function useSearchValue(departmentId) {
   const location = useLocation();
-  const searchValue = departmentId ? `1` : new URLSearchParams(location.search).get("search");
+  const searchValue = departmentId
+    ? `1`
+    : new URLSearchParams(location.search).get("search");
   return searchValue;
 }
 
@@ -24,8 +26,8 @@ function SearchResult(props) {
             ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&departmentId=${props.departmentId}&isHighlight=true&q=""`
             : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&isHighlight=true&q=${searchValue}`
           : props.advancedSearch
-            ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&departmentId=${props.departmentId}&q=""`
-            : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
+          ? `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&departmentId=${props.departmentId}&q=""`
+          : `https://collectionapi.metmuseum.org/public/collection/v1/search?hasImage=true&q=${searchValue}`;
         const response = await fetch(endpoint);
         const temp = await response.json();
         setData(temp.objectIDs);
@@ -56,8 +58,6 @@ function SearchResult(props) {
     });
   }
 
-  function handleClear() {}
-
   function toggleHighlightedOnly() {
     setShowHighlightedOnly(
       (prevShowHighlightedOnly) => !prevShowHighlightedOnly
@@ -75,13 +75,6 @@ function SearchResult(props) {
             onClick={toggleHighlightedOnly}
           >
             {showHighlightedOnly ? "Show All" : "Show Highlighted Only"}
-          </button>
-          <button
-            className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
-            type="button"
-            onClick={handleClear}
-          >
-            Réinitialiser
           </button>
         </div>
       ) : (
