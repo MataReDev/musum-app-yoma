@@ -6,7 +6,7 @@ class AdvancedSearch extends Component {
     department: null,
     departmentId: 0,
     isHighlight: false,
-    showResult: false
+    showResult: false,
   };
 
   handleInputChange = (event) => {
@@ -21,7 +21,6 @@ class AdvancedSearch extends Component {
     event.preventDefault(); // pour éviter que la page se recharge
     const selectedDepartmentId = event.target.department.value;
     this.setState({ departmentId: selectedDepartmentId, showResult: true });
-
   };
 
   fetchDepartment = async () => {
@@ -30,7 +29,7 @@ class AdvancedSearch extends Component {
     );
     const data = await response.json();
     const departments = data.departments;
-    const dataSlice = departments
+    const dataSlice = departments;
     this.setState({ department: dataSlice });
   };
 
@@ -39,35 +38,39 @@ class AdvancedSearch extends Component {
     return (
       <div className="flex flex-col gap-5">
         <form onSubmit={this.handleSubmit}>
-          <h2>Recherche avancée :</h2>
-          <h3>Département :</h3>
-          {department?.map((dep, idx) => {
-            return (
-              <label key={idx}>
-                <input
-                  type="radio"
-                  name="department"
-                  value={dep.departmentId}
-                  onChange={this.handleInputChange}
-                />
-                {dep.displayName}
-              </label>
-            );
-          })}
+          <h2 class="text-xl font-bold">Recherche avancée :</h2>
+          <h3 className="font-bold">Département :</h3>
+          <table className="border-collapse">
+            <tbody>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-2">
+                {department?.map((dep, idx) => {
+                  return (
+                    <label key={idx} className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        className="form-radio h-5 w-5 text-gray-600"
+                        name="department"
+                        value={dep.departmentId}
+                        onChange={this.handleInputChange}
+                      />
+                      <span className="ml-2">{dep.displayName}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </tbody>
+          </table>
           <br />
           <button
-            className="px-4 py-2 border-2 rounded-lg hover:border-black transition-all duration-300"
+            className="bg-black hover:bg-white hover:text-black hover:border-black text-white font-bold py-2 px-4 rounded-lg border-2 border-black transition-colors duration-300"
             type="submit"
           >
             Rechercher
           </button>
         </form>
-        { showResult &&
-          <SearchResult
-            advancedSearch={true}
-            departmentId={departmentId}
-          />
-        }
+        {showResult && (
+          <SearchResult advancedSearch={true} departmentId={departmentId} />
+        )}
       </div>
     );
   }
