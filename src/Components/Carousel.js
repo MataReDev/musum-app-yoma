@@ -71,7 +71,7 @@ function Carousel(props) {
 
   return (
     <div className="Carousel">
-      <h1>{props.title}</h1>
+      <h1 className="font-bold">{props.title}</h1>
       <Slider {...settings}>
         {images.map((img, idx) => {
           return (
