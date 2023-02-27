@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The app is accessible there : [Museum App](https://museum.matared.ovh).
 
-Slides : [Slides Présentation](https://museum.matared.ovh).
+Slides : [Slides Présentation](https://github.com/MataReDev/musum-app-yoma/blob/master/public/Supknowledge.pdf).
 
 ## Available Scripts
 
