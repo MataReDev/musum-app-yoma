@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import ObjectComponent from "../Components/ObjectComponent";
 
+
 test("renders object title and department", async () => {
   const fakeData = {
     title: "Test Object",
